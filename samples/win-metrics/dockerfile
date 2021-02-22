@@ -1,0 +1,14 @@
+#FROM microsoft/windowsservercore
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
+##FROM mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+
+# BlogEngine.NET dependencies
+##RUN dism.exe /online /enable-feature /all /featurename:iis-webserver /NoRestart
+##RUN powershell add-windowsfeature web-asp-net45 
+
+
+# Configure Web App
+COPY metrics.ps1 C:/
+
+# Overwrite Web.config file so that web service points to db service
+CMD powershell c:\metrics.ps1;
